@@ -1,0 +1,73 @@
+%!TEX encoding = UTF-8
+
+\documentclass{jarticle}
+\usepackage{GraduationAbst}
+\usepackage[dvipdfmx]{graphicx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BODY TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% title %%%%%%%%%%%%%%%%
+\title{強化学習を用いた多品種ピッキングの視覚的説明}
+\prof{藤吉弘亘}
+\name{ER18063 本多航也}
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sec{はじめに}
+\ ピッキングロボットが多品種のピッキングをする場合，把持位置をどのように判断しているのか不鮮明である．強化学習において，どのように把持位置推定を行ったか視覚的に説明するためにMask-Attention A3C (Mask A3C) \cite{ref2} を参考に，Attention機構を導入しAttention mapを獲得する．
+
+\sec{Mask-Attention A3C}
+\ Mask A3Cは，Actor-Criticの代表的な深層強化学習手法であるAsynchronous Advantage Actor-Critic (A3C)\cite{ref3}に対して，Attention機構を導入した手法である．Mask A3Cの構造を図 \ref{mask} に示す．A3CのPolicy branchとValue branchにAttention機構を導入することで各ブランチの出力に対するネットワークの注視領域を表すAttention mapを獲得できる．
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=78mm]{img/ABN4.png}
+	\vspace{-4mm}
+	\caption{Mask A3Cの構造}
+	\vspace{-2mm}
+	\label{mask}
+\end{figure}
+
+\sec{シミュレータ環境}
+\ 本研究に用いるIsaac gymについて説明する．Isaac gymはNVIDIAが提供している強化学習に対応したシミュレータである．今回使用するタスクのFrankaCabinetについて説明する．FrankaCabinetは，Franka EmikaのPandaというピッキングロボットでキャビネットの上段の引き出しを開けるタスクである．デフォルトでは，関節角度やキャビネットの上段の引き出しなどの23種の数値情報を使用して強化学習を行っている．FrankaCabinetの出力画面を図 \ref{render} に示す．
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=78mm]{img/franka_render.png}
+	\vspace{-4mm}
+	\caption{FrankaCabinetの出力画面}
+	\vspace{-2mm}
+	\label{render}
+\end{figure}
+
+\sec{おわりに}
+\ 今回はIsaacgymで数値入力，画像入力，数値＆画像入力のモデルで精度を比較した．今後は，学習モデルの改善と多品種の強化学習の実装をする．
+
+
+
+%\begin{figure}[tb]
+%\centering
+%\subfigure[画像1]{
+%	\includegraphics[width=.35\linewidth]{img/a.jpg}}
+%\subfigure[画像2]{
+%	\includegraphics[width=.35\linewidth]{img/b.jpg}}
+%\caption{subfigureのサンプル．}
+%\label{fig:subfigure_sample}
+%\end{figure}
+
+
+% bibliography %%%%%%%%%
+\begin{thebibliography}{9}
+	\bibitem{ref2} 板谷英典 等，``A3CにおけるAttention機構を用いた視覚的説明'' ，JSAI，2020
+	\bibitem{ref3}V. Mnih, {\it et al.}., “Asynchronous methods for deep reinforcement learning”, ICML, 2016.
+\end{thebibliography}
+
+
+% bibtex
+%\nocite{*}
+%\bibliographystyle{jplain}
+%\bibliography{pjsai_JSAI2020_2J6GS204_ja}
+
+
+\end{document}
